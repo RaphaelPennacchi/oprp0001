@@ -30,8 +30,8 @@ typedef struct {
 int malocar (mymatriz *matriz);
 int mgerar(mymatriz *matriz, int valor);
 int mimprimir (mymatriz *matriz);
-int mzerar (mymatriz *matriz);
 int mliberar (mymatriz *matriz);
+int mzerar (mymatriz *matriz);
 int mcomparar (mymatriz *mat_a, mymatriz *mat_b);
 
 // submatriz
