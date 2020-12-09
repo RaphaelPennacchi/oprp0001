@@ -1,6 +1,7 @@
 #include "toolsv3.h"
 #include <time.h>
 #include <sys/time.h>
+#include <string.h>
 
 #define _DEBUG_ 0
 
@@ -13,7 +14,7 @@ double wtime() {
 int splitv2(const char *str, char sep, int nro_line, int *vetnum) {
   int conta_palavras;
   unsigned int start = 0, stop = 0;
-  char *tmpStr;
+  char *tmpStr = NULL;
 
   #if _DEBUG_
   printf("SPLITv2: \n\tConteúdo da linha (%s)\n\tSeparador (%c)\n\tNro de caracteres na Linha(%d)\n", str, sep, nro_line);
@@ -280,11 +281,9 @@ int filein_matriz (int **matriz, int linha, int coluna, FILE *file, int *vet_ind
 
     free (getLine);
     for (int j=0; j < coluna; j++){
-
       #if _DEBUG_
       printf("FILEIN_MATRIZ:\t(i[%d],j[%d])%d\n", i , j, line_matriz_file[j]);
       #endif
-
       matriz[i][j] = line_matriz_file[j];
     }
     free(line_matriz_file);

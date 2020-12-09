@@ -5,10 +5,8 @@
 #include "matrizv3.h"
 #include "matriz-operacoesv3.h"
 
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 int main(int argc, char *argv[]) {
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	// DECLARAÇÃO de VARIÁVEIS
 	mymatriz mat_a, mat_b;
 	mymatriz **mat_soma, **mat_mult;
@@ -18,14 +16,12 @@ int main(int argc, char *argv[]) {
 	int *vet_line = NULL;
 	int N, M, La, Lb;
 	double start_time, end_time;
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
 	if (argc != 3){
 		printf ("ERRO: Numero de parametros %s <matriz_a> <matriz_b>\n", argv[0]);
 		exit (1);
 	}
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//                Leitura da Matriz A (arquivo)
 	fmat = fopen(argv[1],"r");
 	if (fmat == NULL) {
@@ -43,9 +39,7 @@ int main(int argc, char *argv[]) {
 	filein_matriz (mat_a.matriz, N, La, fmat, vet_line, nr_line);
 	free (vet_line);
 	fclose(fmat);
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//               Leitura da Matriz B (arquivo)
 	fmat = fopen(argv[2],"r");
 	if (fmat == NULL) {
@@ -62,9 +56,7 @@ int main(int argc, char *argv[]) {
 	filein_matriz (mat_b.matriz, Lb, M, fmat, vet_line, nr_line);
 	free (vet_line);
 	fclose(fmat);
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//                 Operações de Adição
 	mat_soma = (mymatriz **) calloc (2,sizeof(mymatriz *));
 	for (int ii=0; ii < 2; ii++) {
@@ -79,11 +71,9 @@ int main(int argc, char *argv[]) {
 		fileout_matriz(mat_soma[ii], fmat);
 		fclose(fmat);
 	}
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
 	printf("\n%%%%%%%%%%%%%%%%\n");
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//               Operações de Multiplicação
 	mat_mult = (mymatriz **) malloc (sizeof(mymatriz *)*6);
 	for (int ii=0; ii < 6; ii++) {
@@ -98,9 +88,7 @@ int main(int argc, char *argv[]) {
 		fileout_matriz(mat_mult[ii], fmat);
 		fclose(fmat);
 	}
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//              Comparação dos resultados
 	printf("\n ##### Comparação dos resultados da adição de matrizes #####\n");
 	printf("[soma_t0 vs soma_t1]\t");
@@ -111,9 +99,7 @@ int main(int argc, char *argv[]) {
 		printf("[mult_t0 vs mult_t%d]\t", i);
 		mcomparar (mat_mult[0],mat_mult[i]);
 	}
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
-	// %%%%%%%%%%%%%%%%%%%%%%%% BEGIN %%%%%%%%%%%%%%%%%%%%%%%%
 	//                   Liberação de memória
 	for (int ii=0; ii < 2; ii++) {
 		mliberar(mat_soma[ii]);
@@ -129,7 +115,6 @@ int main(int argc, char *argv[]) {
 	mliberar(&mat_b);
 	free(mat_soma);
 	free(mat_mult);
-	// %%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%
 
 	return 0;
 }

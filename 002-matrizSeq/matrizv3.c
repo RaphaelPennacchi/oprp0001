@@ -94,9 +94,13 @@ int mcomparar (mymatriz *mat_a, mymatriz *mat_b){
 }
 
 int gerar_submatriz (int **mat_origem, matriz_bloco_t *submatriz, bloco_t *bloco){
-
+	return 1;
 }
-int imprimir_submatriz (matriz_bloco_t *submatriz);
+
+int imprimir_submatriz (matriz_bloco_t *submatriz){
+	return 1;
+}
+
 matriz_bloco_t **particionar_matriz (int **matriz, int mat_lin, int mat_col, int orientacao, int divisor);
 matriz_bloco_t **liberar_submatriz (matriz_bloco_t **submatriz);
 int imprimir_bloco (matriz_bloco_t *submatriz);

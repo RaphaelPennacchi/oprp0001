@@ -5,7 +5,6 @@
 #include "matrizv3.h"
 
 
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 int main(int argc, char **argv) {
 	FILE *fmat0;
 	FILE *fmat1;
@@ -14,7 +13,6 @@ int main(int argc, char **argv) {
 	char filename [100];
 	int *vet_line = NULL;
 	int nr_line;
-
 
 	if (argc != 3){
 		printf ("ERRO: Numero de parametros %s <nr_linhas> <nr_colunas>", argv[0]);
