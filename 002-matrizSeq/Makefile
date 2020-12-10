@@ -21,6 +21,7 @@ mainEx01: mainEx01.c matrizv3.o toolsv3.o
 mainEx02: mainEx02.c matrizv3.o toolsv3.o matriz-operacoesv3.o
 		$(CC) $(CCFLAGS) matriz-operacoesv3.o matrizv3.o toolsv3.o mainEx02.c -o $@ $(LDFLAGS)
 
+
 gmat: matrizv3.o toolsv3.o gera_matrizv3.c
 		$(CC) $(CCFLAGS) matrizv3.o toolsv3.o gera_matrizv3.c -o $@ $(LDFLAGS)
 

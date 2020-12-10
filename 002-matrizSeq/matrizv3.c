@@ -104,11 +104,22 @@ int imprimir_submatriz (matriz_bloco_t *submatriz){
 
 // Define a number of sub matrix and generate a vector of these submatrix
 matriz_bloco_t **particionar_matriz (int **matriz, int mLin, int mCol, int orientacao, int div){
-	matriz_bloco_t *foo;
-	return  &foo;
+	//
+	return (matriz_bloco_t **) NULL;
 };
 
 matriz_bloco_t **liberar_submatriz (matriz_bloco_t **submatriz);
-int imprimir_bloco (matriz_bloco_t *submatriz);
-matriz_bloco_t **constroi_submatriz (int **matriz, int mat_lin, int mat_col, int divisor);
-matriz_bloco_t **constroi_submatrizv2 (int mat_lin, int mat_col, int divisor);
+
+int imprimir_bloco (matriz_bloco_t *submatriz){
+	if (!submatriz || !submatriz->bloco){
+		puts("Passado ponteiro nulo em Imprimir Bloco");
+	}
+
+	return 1;
+}
+
+matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
+// Para construir a submatriz é necessario na matrix A do tipo MxN subparticionar o N
+// Na matrix B NxO é necessario subparticionar o O
+
+matriz_bloco_t **constroi_submatrizv2 (int mLin, int mCol, int div);
