@@ -79,12 +79,11 @@ int mzerar (mymatriz *matriz){
 	return mgerar(matriz,0);
 }
 
-int mcomparar (mymatriz *mat_a, mymatriz *mat_b){
-	for (int j=0; j < mat_a->col; j++)
-	for (int i=0; i < mat_a->lin; i++) {
-		for (int j=0; j < mat_a->col; j++){
-			if (mat_a->matriz[i][j] != mat_b->matriz[i][j]) {
-				printf("O elemento [%d,%d] é diferente nas matrizes analisadas!", i,j);
+int mcomparar (mymatriz *matA, mymatriz *matB){
+	for (int i=0; i < matA->lin; i++) {
+		for (int j=0; j < matA->col; j++){
+			if (matA->matriz[i][j] != matB->matriz[i][j]) {
+				printf("O elemento [%d,%d] é diferente nas matrizes analisadas!\n", i,j);
 				return 1;
 			}
 		}
@@ -93,15 +92,22 @@ int mcomparar (mymatriz *mat_a, mymatriz *mat_b){
 	return 0;
 }
 
+// from the matrix generate the submatrix
 int gerar_submatriz (int **mat_origem, matriz_bloco_t *submatriz, bloco_t *bloco){
 	return 1;
 }
 
+// print the submatrix
 int imprimir_submatriz (matriz_bloco_t *submatriz){
 	return 1;
 }
 
-matriz_bloco_t **particionar_matriz (int **matriz, int mat_lin, int mat_col, int orientacao, int divisor);
+// Define a number of sub matrix and generate a vector of these submatrix
+matriz_bloco_t **particionar_matriz (int **matriz, int mLin, int mCol, int orientacao, int div){
+	matriz_bloco_t *foo;
+	return  &foo;
+};
+
 matriz_bloco_t **liberar_submatriz (matriz_bloco_t **submatriz);
 int imprimir_bloco (matriz_bloco_t *submatriz);
 matriz_bloco_t **constroi_submatriz (int **matriz, int mat_lin, int mat_col, int divisor);

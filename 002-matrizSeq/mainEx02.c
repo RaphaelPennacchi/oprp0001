@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 	//                Leitura da Matriz A (arquivo)
 	fmat = fopen(argv[1],"r");
 	if (fmat == NULL) {
-		printf("Error: Na abertura dos arquivos.");
+		printf("Error: Na abertura do arquivo %s.", argv[1]);
 		exit(1);
 	}
 	extrai_parametros_matriz(fmat, &N, &La, &vet_line, &nr_line);
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 	//               Leitura da Matriz B (arquivo)
 	fmat = fopen(argv[2],"r");
 	if (fmat == NULL) {
-		printf("Error: Na abertura dos arquivos.");
+		printf("Error: Na abertura do arquivo %s.", argv[2]);
 		exit(1);
 	}
 	extrai_parametros_matriz(fmat, &Lb, &M, &vet_line, &nr_line);
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 		fclose(fmat);
 	}
 
-	printf("\n%%%%%%%%%%%%%%%%\n");
+	puts("\n%%%%%%%%%%%%%%%%");
 
 	//               Operações de Multiplicação
 	mat_mult = (mymatriz **) malloc (sizeof(mymatriz *)*6);
