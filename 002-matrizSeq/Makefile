@@ -4,7 +4,7 @@
 CC = gcc
 CCFLAGS = -Wall -O3
 LDFLAGS =
-TARGET = mainEx02 gmat mainEx01 help
+TARGET = mainMult gmat help
 
 all: $(TARGET)
 
@@ -13,6 +13,10 @@ all: $(TARGET)
 
 %: %.o
 	$(CC) $(LDFLAGS) $^ -o $@
+
+
+mainMult: mainMult.c matrizv3.o toolsv3.o matriz-operacoesv3.o
+			$(CC) $(CCFLAGS) matrizv3.o toolsv3.o matriz-operacoesv3.o mainMult.c -o $@ $(LDFLAGS)
 
 mainEx01: mainEx01.c matrizv3.o toolsv3.o
 			$(CC) $(CCFLAGS) matrizv3.o toolsv3.o mainEx01.c -o $@ $(LDFLAGS)

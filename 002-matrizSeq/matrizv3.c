@@ -1,7 +1,7 @@
 #include "matrizv3.h"
 #include <time.h>
 
-int malocar (mymatriz *matriz) {
+int malocar (matriz *matriz) {
 	int **newMatriz = NULL;
 	newMatriz = (int **) malloc(matriz->lin*sizeof(int *));
 
@@ -23,7 +23,7 @@ int malocar (mymatriz *matriz) {
 }
 
 // Popular uma matriz ja criada
-int mgerar(mymatriz *matriz, int valor){
+int mgerar(matriz *matriz, int valor){
 	srand( (unsigned)time(NULL) );
 
 	for (int i=0; i < matriz->lin; i++){
@@ -36,7 +36,7 @@ int mgerar(mymatriz *matriz, int valor){
 	return 0;
 }
 
-int mimprimir (mymatriz *matriz){
+int mimprimir (matriz *matriz){
 	int linha, coluna;
 	linha = matriz->lin;
 	coluna = matriz->col;
@@ -67,7 +67,8 @@ int mimprimir (mymatriz *matriz){
 	return 0;
 }
 
-int mliberar (mymatriz *matriz) { for (int i=0; i < matriz->lin; i++) {
+int mliberar (matriz *matriz) { 
+	for (int i=0; i < matriz->lin; i++) {
 		//printf("%p\n", matriz->matriz[i]);
 		free(matriz->matriz[i]);
 	}
@@ -75,11 +76,11 @@ int mliberar (mymatriz *matriz) { for (int i=0; i < matriz->lin; i++) {
 	return 0;
 }
 
-int mzerar (mymatriz *matriz){
+int mzerar (matriz *matriz){
 	return mgerar(matriz,0);
 }
 
-int mcomparar (mymatriz *matA, mymatriz *matB){
+int mcomparar (matriz *matA, matriz *matB){
 	for (int i=0; i < matA->lin; i++) {
 		for (int j=0; j < matA->col; j++){
 			if (matA->matriz[i][j] != matB->matriz[i][j]) {
@@ -92,51 +93,73 @@ int mcomparar (mymatriz *matA, mymatriz *matB){
 	return 0;
 }
 
-// Popula a matrix de origem e ... Help
-int gerar_submatriz (int **mat_origem, matriz_bloco_t *submatriz, bloco_t *bloco){
-	return 0;
-}
+// Imprimir a submatriz, num comeca em 0
+int imprimirSubmatriz (matriz_bloco_t *submatriz, int num){
+	if (!submatriz || !submatriz->bloco){
+		puts("Passado ponteiro nulo em Imprimir Submatriz");
+		return 1;
+	}
 
-// Imprime a submatriz
-int imprimir_submatriz (matriz_bloco_t *submatriz){
-	for (int div = 0; div < submatriz->divisor; div++){
-		for (int i = submatriz->bloco[div].linInicio; i < submatriz->bloco[div].linFim; i++){
-			for (int j = submatriz->bloco[div].colInicio; j < submatriz->bloco[div].colFim; j++){
-				printf("%d ", submatriz->matriz[i][j]);
-			}
-			puts("");
+	if( submatriz->divisor <= num){
+		puts("Submatriz não existente");
+		return 1;
+	}
+
+	for (int i = submatriz->bloco[num].linInicio; i < submatriz->bloco[num].linFim; i++){
+		for (int j = submatriz->bloco[num].colInicio; j < submatriz->bloco[num].colFim; j++){
+			printf("%d ", submatriz->matriz[i][j]);
 		}
+		puts("");
 	}
 	
 	return 0;
 }
 
-// Define a number of sub matrix and generate a vector of these submatrix
-//
-matriz_bloco_t **particionar_matriz (int **matriz, int mLin, int mCol, int orientacao, int div){
-	matriz_bloco_t *subMatrizes = NULL;	
-	return (matriz_bloco_t **) NULL;
-};
-
-// Da free no vetor de bloco_t, na int **matriz e no matriz_bloco_t recebido
-matriz_bloco_t **liberar_submatriz (matriz_bloco_t **submatriz);
-
-int imprimir_bloco (matriz_bloco_t *submatriz){
+// Imprime o Bloco T
+int imprimirBloco (matriz_bloco_t *submatriz, int num){
 	if (!submatriz || !submatriz->bloco){
 		puts("Passado ponteiro nulo em Imprimir Bloco");
 		return 1;
 	}
 	
+	if( submatriz->divisor <= num){
+		puts("Submatriz não existente");
+		return 1;
+	}
+
+	printf("Bloco[%d]: li %d lf %d ci %d cf %d\n", num, submatriz->bloco[num].linInicio, 
+		submatriz->bloco[num].linFim, submatriz->bloco[num].colInicio, submatriz->bloco[num].colFim);
+
 	return 0;
 }
 
-// Para construir a submatriz é necessario na matrix A do tipo MxN subparticionar o N
-// Na matrix B NxO é necessario subparticionar o N e somar todas as submatrizes
-matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
+// Da free no vetor de bloco_t, na int **matriz e no matriz_bloco_t recebido
+int liberarSubmatriz(matriz_bloco_t **submatriz){
+	if (!(*submatriz) || !(*submatriz)->bloco){
+		puts("Passado ponteiro nulo em Imprimir Bloco");
+		return 1;
+	}
+	
+	
 
-// Gerar uma matriz de tamanho mLin x mCol e particionala em div partes
-// retornar um matriz_bloco_t que seria a matriz particionado em blocos
-// matriz_bloco_t **constroi_submatrizv3 (int mLin, int mCol, int div);
+	return 0;
+}
+
+// Receber uma matriz_bloco_t e uma orientação que refere a linha ou coluna para particionar nesse sentido
+// Retorna um vetor bloco_t que é a delimitação das partições da matrix
+bloco_t **particionarAux (matriz_bloco_t *matriz, int orientacao);
+
+// Particionar matrix Versão Raphael, receber as duas matrizes na estrutura matriz e um int com o numero de partições
+// Retorna uma vetor de matriz_bloco_t contendo as duas matrizes particionadas
+matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div);
+
+// matriz_bloco_t **particionarMatrizv3 (matriz *matriz, int orientacao, int div);
+// Libera todas as submatriz
+
+
+// Para construir a submatriz é necessario na matrix A do tipo MxN subparticionar o N
+// Na matrix B NxO é necessario subparticionar o N e somar todas as submatrizes resultantes
+
 // MxN							NxO
 
 // Mat A1    Mat A2
@@ -146,6 +169,7 @@ matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
 // bA[1].linInicio = 0; bA[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
 // bB[0].linInicio = 0; bB[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
 // bB[1].linInicio = 0; bB[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
+
 // 5x2		5x1
 // 1 2 		3				1 2 3 4 5 6 7 8		Mat B1   
 // 1 2 		3				1 2 3 4 5 6 7 8		2x8	
@@ -153,4 +177,5 @@ matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
 // 1 2 		3				1 2 3 4 5 6 7 8		1x8
 // 1 2 		3
 
-// MatF = (MatA1 * MatB1 + MatA2 * MatB2)
+// MatF = (MatA1 * MatB1 + MatA2 * MatB2);
+// MatF = (MatC1 + MatC2);

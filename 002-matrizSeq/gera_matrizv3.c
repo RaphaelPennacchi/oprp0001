@@ -6,9 +6,8 @@
 
 
 int main(int argc, char **argv) {
-	FILE *fmat0;
-	FILE *fmat1;
-	mymatriz mma0,mma1;
+	FILE *fmat0, *fmat1;
+	matriz mma0,mma1;
 	int linha, coluna;
 	char filename [100];
 	int *vet_line = NULL;
@@ -25,7 +24,7 @@ int main(int argc, char **argv) {
 
 	fmat0 = fopen(filename,"w");
   if (fmat0 == NULL) {
-		printf("Error: Na abertura dos arquivos.");
+		puts("Error: Na abertura dos arquivos.");
 		exit(1);
   }
 
@@ -35,7 +34,7 @@ int main(int argc, char **argv) {
 	if (malocar(&mma0)) {	//
 	// printf("##### Arquivo %dx%d-mat.map: VERIFICADO! #####\n", linha, coluna);
 
-		printf ("ERROR: Out of memory\n");
+		puts("ERROR: Out of memory.");
 	}
 	mgerar(&mma0, -9999);
 	mimprimir(&mma0);
@@ -48,13 +47,13 @@ int main(int argc, char **argv) {
 
 	fmat1 = fopen(filename,"r");
 	if (fmat1 == NULL) {
-		printf("Error: Na abertura dos arquivos.");
+		puts("Error: Na abertura dos arquivos.");
 		exit(1);
 	}
 
 	extrai_parametros_matriz(fmat1, &mma1.lin, &mma1.col, &vet_line, &nr_line);
 	if (malocar(&mma1)) {
-		printf ("ERROR: Out of memory\n");
+		puts("ERROR: Out of memory.");
 	}
 
 	filein_matriz(mma1.matriz, linha, coluna, fmat1, vet_line, nr_line);

@@ -113,7 +113,7 @@ int conta_line_file ( FILE *const fin, int get_line, int nro_line, int *vet_line
   return(retint);
 }
 
-int fileout_matriz (mymatriz *matriz, FILE *infile){
+int fileout_matriz (matriz *matriz, FILE *infile){
   fprintf(infile,"#Linha#Coluna#\n");
   fprintf(infile,"%d#%d#\n", matriz->lin, matriz->col);
   for (int i=0; i < matriz->lin; i++) {
@@ -289,4 +289,33 @@ int filein_matriz (int **matriz, int linha, int coluna, FILE *file, int *vet_ind
     free(line_matriz_file);
   }
   return 0;
+}
+
+matriz *leMatriz(char *nomeArq){
+  FILE *fMat;
+  int nL, nC, nrLine;
+  int *vetLine = NULL;
+  matriz *mat = (matriz *) malloc(sizeof(matriz));
+  if(!mat){
+    puts("Erro ao alocar matriz");
+    exit(1);
+  }
+	fMat = fopen(nomeArq,"r");
+	if (fMat == NULL) {
+		printf("Error: Na abertura do arquivo %s.", nomeArq);
+		exit(1);
+	}
+	extrai_parametros_matriz(fMat, &nL, &nC, &vetLine, &nrLine);
+	//return 1;
+	mat->matriz = NULL;
+	mat->lin = nL;
+	mat->col = nC;
+	if (malocar(mat)) {
+		printf ("ERROR: Out of memory\n");
+	}
+  printf("%s\n", nomeArq);
+	filein_matriz (mat->matriz, nL, nC, fMat, vetLine, nrLine);
+	free (vetLine);
+	fclose(fMat);
+  return mat;
 }

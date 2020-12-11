@@ -6,10 +6,9 @@
 #include "matriz-operacoesv3.h"
 
 int main(int argc, char *argv[]) {
-
 	// DECLARAÇÃO de VARIÁVEIS
-	mymatriz mat_a, mat_b;
-	mymatriz **mat_soma, **mat_mult;
+	matriz mat_a, mat_b;
+	matriz **mat_soma, **mat_mult;
 	char filename[100];
 	FILE *fmat;
 	int nr_line;
@@ -58,7 +57,7 @@ int main(int argc, char *argv[]) {
 	fclose(fmat);
 
 	//                 Operações de Adição
-	mat_soma = (mymatriz **) calloc (2,sizeof(mymatriz *));
+	mat_soma = (matriz **) calloc (2,sizeof(matriz *));
 	for (int ii=0; ii < 2; ii++) {
 		printf("\n ##### somar_t%d de Matrizes #####\n", ii);
 		start_time = wtime();
@@ -75,7 +74,7 @@ int main(int argc, char *argv[]) {
 	puts("\n%%%%%%%%%%%%%%%%");
 
 	//               Operações de Multiplicação
-	mat_mult = (mymatriz **) malloc (sizeof(mymatriz *)*6);
+	mat_mult = (matriz **) malloc (sizeof(matriz *)*6);
 	for (int ii=0; ii < 6; ii++) {
 		printf("\n ##### multiplicar_t%d de Matrizes #####\n", ii);
 		start_time = wtime();
@@ -90,7 +89,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	//              Comparação dos resultados
-	printf("\n ##### Comparação dos resultados da adição de matrizes #####\n");
+	printf("\n #### Comparação dos resultados da adição de matrizes #####\n");
 	printf("[soma_t0 vs soma_t1]\t");
 	mcomparar (mat_soma[0],mat_soma[1]);
 
