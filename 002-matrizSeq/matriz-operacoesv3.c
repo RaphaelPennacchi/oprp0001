@@ -1,7 +1,10 @@
 	#include "matriz-operacoesv3.h"
 
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MATRIZ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+// Sum the matrix
+// for (i =0; i < 3-1; i++){
+
+}
 mymatriz *msomar (mymatriz *mat_a, mymatriz *mat_b, int tipo) {
 	mymatriz *mat_c = NULL;
 
@@ -38,7 +41,7 @@ mymatriz *mmultiplicar (mymatriz *mat_a, mymatriz *mat_b, int tipo) {
 	//imprimir_matriz(mat_a, M, N);
 	//imprimir_matriz(mat_b, L, M);
 	//imprimir_matriz(mat_c, N, N);
-	// for (int i=0; i < N; i++)
+	// for (int i=0; i < N; i++){
 	// for (int j=0; j < M; j++) {
 	// 	//printf("c(%d,%d) = ", i, j);
 	// 		for (int k=0; k < L; k++) {
@@ -48,6 +51,7 @@ mymatriz *mmultiplicar (mymatriz *mat_a, mymatriz *mat_b, int tipo) {
 	// 		}
 	// 		//printf(" = %d\n", mat_c[i][j]);
 	// 	}
+	// }
 	//return mat_c;
 }
 

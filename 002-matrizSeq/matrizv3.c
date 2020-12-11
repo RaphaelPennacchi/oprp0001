@@ -22,6 +22,7 @@ int malocar (mymatriz *matriz) {
 	return 0;
 }
 
+// Popular uma matriz ja criada
 int mgerar(mymatriz *matriz, int valor){
 	srand( (unsigned)time(NULL) );
 
@@ -66,8 +67,7 @@ int mimprimir (mymatriz *matriz){
 	return 0;
 }
 
-int mliberar (mymatriz *matriz) {
-	for (int i=0; i < matriz->lin; i++) {
+int mliberar (mymatriz *matriz) { for (int i=0; i < matriz->lin; i++) {
 		//printf("%p\n", matriz->matriz[i]);
 		free(matriz->matriz[i]);
 	}
@@ -92,34 +92,76 @@ int mcomparar (mymatriz *matA, mymatriz *matB){
 	return 0;
 }
 
-// from the matrix generate the submatrix
+// Popula a matrix de origem e ... Help
 int gerar_submatriz (int **mat_origem, matriz_bloco_t *submatriz, bloco_t *bloco){
-	return 1;
+	return 0;
 }
 
-// print the submatrix
+// Imprime a submatriz
 int imprimir_submatriz (matriz_bloco_t *submatriz){
-	return 1;
+	for (int div = 0; div < submatriz->divisor; div++){
+		for (int i = submatriz->bloco[div].linInicio; i < submatriz->bloco[div].linFim; i++){
+			for (int j = submatriz->bloco[div].colInicio; j < submatriz->bloco[div].colFim; j++){
+				printf("%d ", submatriz->matriz[i][j]);
+			}
+			puts("");
+		}
+	}
+	
+	return 0;
 }
 
 // Define a number of sub matrix and generate a vector of these submatrix
+//
 matriz_bloco_t **particionar_matriz (int **matriz, int mLin, int mCol, int orientacao, int div){
-	//
+	matriz_bloco_t *subMatrizes = NULL;	
 	return (matriz_bloco_t **) NULL;
 };
 
+// Da free no vetor de bloco_t, na int **matriz e no matriz_bloco_t recebido
 matriz_bloco_t **liberar_submatriz (matriz_bloco_t **submatriz);
 
 int imprimir_bloco (matriz_bloco_t *submatriz){
 	if (!submatriz || !submatriz->bloco){
 		puts("Passado ponteiro nulo em Imprimir Bloco");
+		return 1;
 	}
-
-	return 1;
+	
+	return 0;
 }
 
-matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
 // Para construir a submatriz é necessario na matrix A do tipo MxN subparticionar o N
-// Na matrix B NxO é necessario subparticionar o O
+// Na matrix B NxO é necessario subparticionar o N e somar todas as submatrizes
+matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
 
+// Gerar uma matriz de tamanho mLin x mCol e particionala em div partes
+// retornar um matriz_bloco_t que seria a matriz particionado em blocos
 matriz_bloco_t **constroi_submatrizv2 (int mLin, int mCol, int div);
+// MxN							NxO
+// 5x3							3x8
+// 3x3 						3x4
+// Mat A1					Mat B1				Mat B2
+// 1 2 3				1 2 3 4  			5 6 7 8
+// 1 2 3				1 2 3 4 			5 6 7 8
+// 1 2 3				1 2 3 4  			5 6 7 8
+
+// Mat A2
+// 1 2 3
+// 1 2 3
+
+
+// Mat A1    Mat A2
+// 5x2				5x1
+// bloco_t *bA = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
+// bloco_t *bB = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
+// bA[0].linInicio = 0; bA[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
+// bA[1].linInicio = 0; bA[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
+// bB[0].linInicio = 0; bB[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
+// bB[1].linInicio = 0; bB[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
+// 1 2 		3				1 2 3 4 5 6 7 8		Mat B1   
+// 1 2 		3				1 2 3 4 5 6 7 8		2x8	
+// 1 2 		3				
+// 1 2 		3				1 2 3 4 5 6 7 8		1x8
+// 1 2 		3
+
+// MatF = (MatA1 * MatB1 + MatA2 * MatB2)
