@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
 	matA = leMatriz(argv[1]);
 	matB = leMatriz(argv[2]);
 
-
 	matriz *matC = multiplicarSeq(matA, matB);
 	mimprimir(matC);
 

@@ -43,7 +43,7 @@ int imprimirBloco (matriz_bloco_t *submatriz, int num);
 
 // Receber uma matriz_bloco_t e uma orientação que refere a linha ou coluna para particionar nesse sentido
 // Retorna um vetor bloco_t que é a delimitação das partições da matrix
-bloco_t **particionarAux (matriz_bloco_t *matriz, int orientacao);
+int particionarAux (matriz_bloco_t *matriz, int orientacao);
 
 // Particionar matrix Versão Raphael, receber as duas matrizes na estrutura matriz e um int com o numero de partições
 // Retorna uma vetor de matriz_bloco_t contendo as duas matrizes particionadas

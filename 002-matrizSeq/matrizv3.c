@@ -139,19 +139,62 @@ int liberarSubmatriz(matriz_bloco_t **submatriz){
 		puts("Passado ponteiro nulo em Imprimir Bloco");
 		return 1;
 	}
-	
-	
+
+	for (int i = 0; i < (*submatriz)->lin; i++) free((*submatriz)->matriz[i]);
+	free((*submatriz)->matriz);
+	free((*submatriz)->bloco);
+	free((*submatriz));
 
 	return 0;
 }
 
 // Receber uma matriz_bloco_t e uma orientação que refere a linha ou coluna para particionar nesse sentido
 // Retorna um vetor bloco_t que é a delimitação das partições da matrix
-bloco_t **particionarAux (matriz_bloco_t *matriz, int orientacao);
+int particionarAux (matriz_bloco_t *matriz, int orientacao){
+	matriz->bloco = (bloco_t *) malloc(matriz->divisor*sizeof(bloco_t));
+	if(!(matriz->bloco)){
+		puts("Falha ao criar o vetor de blocos");
+		exit(1);
+	}
+	if(orientacao){
+		for(int i=0; i<matriz->divisor; i++){
+			// Todo 
+		}
+	} else {
+		for(int i=0; i<matriz->divisor; i++){
+			// Todo 
+		}
+	}
+	return 0;
+}
 
 // Particionar matrix Versão Raphael, receber as duas matrizes na estrutura matriz e um int com o numero de partições
 // Retorna uma vetor de matriz_bloco_t contendo as duas matrizes particionadas
-matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div);
+matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
+	matriz_bloco_t *matrizes = (matriz_bloco_t *) malloc(sizeof(matriz_bloco_t) * 2);
+	if(!matrizes){
+		puts("Nao foi possivel alocar matriz_bloco_t");
+		exit(1);
+	}
+	matrizes[0].lin = mA->lin;
+	matrizes[0].col= mA->col;
+	matrizes[0].divisor = div;
+	matrizes[0].matriz = mA->matriz;
+	matrizes[1].lin = mB->lin;
+	matrizes[1].col= mB->col;
+	matrizes[1].divisor = div;
+	matrizes[1].matriz = mB->matriz;
+
+	// Todo Talvez não seja necessário a particionar matrix 
+	// Todo Pois sempre vamos separa da mesma forma a mA e a mB
+	// Todo	É possivel realizar tudo em um for
+	for(int i = 0; i < div; i++){
+
+
+	}
+
+	return matrizes;
+}
 
 // matriz_bloco_t **particionarMatrizv3 (matriz *matriz, int orientacao, int div);
 // Libera todas as submatriz
