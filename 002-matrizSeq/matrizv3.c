@@ -136,28 +136,17 @@ matriz_bloco_t **constroi_submatriz (int **matriz, int mLin, int mCol, int div);
 
 // Gerar uma matriz de tamanho mLin x mCol e particionala em div partes
 // retornar um matriz_bloco_t que seria a matriz particionado em blocos
-matriz_bloco_t **constroi_submatrizv2 (int mLin, int mCol, int div);
+// matriz_bloco_t **constroi_submatrizv3 (int mLin, int mCol, int div);
 // MxN							NxO
-// 5x3							3x8
-// 3x3 						3x4
-// Mat A1					Mat B1				Mat B2
-// 1 2 3				1 2 3 4  			5 6 7 8
-// 1 2 3				1 2 3 4 			5 6 7 8
-// 1 2 3				1 2 3 4  			5 6 7 8
-
-// Mat A2
-// 1 2 3
-// 1 2 3
-
 
 // Mat A1    Mat A2
-// 5x2				5x1
 // bloco_t *bA = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
 // bloco_t *bB = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
 // bA[0].linInicio = 0; bA[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
 // bA[1].linInicio = 0; bA[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
 // bB[0].linInicio = 0; bB[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
 // bB[1].linInicio = 0; bB[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
+// 5x2		5x1
 // 1 2 		3				1 2 3 4 5 6 7 8		Mat B1   
 // 1 2 		3				1 2 3 4 5 6 7 8		2x8	
 // 1 2 		3				
