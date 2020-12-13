@@ -32,11 +32,13 @@ matriz *msomar(matriz *mat_a, matriz *mat_b, int tipo){
 
 // Multiplicação das matrizes de forma sequencial
 matriz *multiplicarSeq (matriz *matA, matriz *matB) {
+	// Compara se matA col == matB lin   MxN NxO os N tem que ser iguais
 	if (matA->col != matB->lin){
 		puts("Erro: Matrizes incompatíveis!");
 		exit(1);
 	}
 
+	// Aloco a matC
 	matriz *matC = NULL;
 	matC = (matriz *) malloc(sizeof(matriz));
 	if (!matC){
@@ -44,15 +46,16 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 		exit(1);
 	}
 
+	// matC tem tamanho MxO
 	matC->lin = matA->lin;
 	matC->col = matB->col;
 
+	// Cria a matC->matriz com todos os campos preenchidos com 0
 	matC->matriz = (int **) malloc(matC->lin * sizeof(int *));
 	if(!matC->matriz){
 		puts("Sem memoria para alocar matriz C");
 		exit(1);
 	}
-
 	for(int i=0; i < matC->lin; i++){
 		matC->matriz[i] = (int *) calloc(matC->col, sizeof(int));
 		if(!matC->matriz[i]){
@@ -61,6 +64,7 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 		}
 	}
 
+	// Realiza a multiplicacao de matA x matB e salva em matC
 	for(int M = 0; M < matC->lin; M++){
 		for(int O = 0; O < matC->col; O++){
 			for(int N = 0; N < matA->col; N++){
@@ -70,4 +74,15 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 	}
 
 	return matC;
+}
+
+matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB){
+	matriz *matR = (matriz *) malloc(sizeof(matriz) * matA->divisor);
+
+	// Todo fazer um loop em cada bloco e colocar em uma funcao aux pra multiplicar
+	for(int i = 0; i < matA->divisor; i++){
+		//matR[i] =  multiplicaBlocoAux(matA->matriz, matA->bloco[i], matB->matriz, matB->bloco[i]);
+	}
+
+	return matR;
 }

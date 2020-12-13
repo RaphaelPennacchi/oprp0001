@@ -58,10 +58,9 @@ int mimprimir (matriz *matriz){
 	}
 
 	printf("\n \
-	%%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%%\n \
 	WARNING: Impressão truncada em 15x15! \n \
 	WARNING: Último elemento matriz[%d][%d] = %d \n \
-	%%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%% %%%%%%%%%%%%\n", \
+	\n", \
 	matriz->lin-1, matriz->col-1, matriz->matriz[matriz->lin-1][matriz->col-1]);
 
 	return 0;
@@ -148,29 +147,19 @@ int liberarSubmatriz(matriz_bloco_t **submatriz){
 	return 0;
 }
 
-// Receber uma matriz_bloco_t e uma orientação que refere a linha ou coluna para particionar nesse sentido
-// Retorna um vetor bloco_t que é a delimitação das partições da matrix
-int particionarAux (matriz_bloco_t *matriz, int orientacao){
-	matriz->bloco = (bloco_t *) malloc(matriz->divisor*sizeof(bloco_t));
-	if(!(matriz->bloco)){
-		puts("Falha ao criar o vetor de blocos");
-		exit(1);
-	}
-	if(orientacao){
-		for(int i=0; i<matriz->divisor; i++){
-			// Todo 
-		}
-	} else {
-		for(int i=0; i<matriz->divisor; i++){
-			// Todo 
-		}
-	}
-	return 0;
-}
-
-// Particionar matrix Versão Raphael, receber as duas matrizes na estrutura matriz e um int com o numero de partições
+// Particionar matrix Versão Raphael Renato, receber as duas matrizes na estrutura matriz e um int com o numero de partições
 // Retorna uma vetor de matriz_bloco_t contendo as duas matrizes particionadas
 matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
+	if(mA->col != mB->lin){
+		puts("Matriz A coluna e Matriz B linha diferem");
+		exit(1);
+	} if(mA->col < div){
+		puts("Numero divisor maior que o numero de N");
+		exit(1);
+	} if(div == 1){
+		puts("Numero de blocos necessita ser maior que 1");
+		exit(1);
+	}
 	matriz_bloco_t *matrizes = (matriz_bloco_t *) malloc(sizeof(matriz_bloco_t) * 2);
 	if(!matrizes){
 		puts("Nao foi possivel alocar matriz_bloco_t");
@@ -178,19 +167,32 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 	}
 	matrizes[0].lin = mA->lin;
 	matrizes[0].col= mA->col;
-	matrizes[0].divisor = div;
 	matrizes[0].matriz = mA->matriz;
 	matrizes[1].lin = mB->lin;
 	matrizes[1].col= mB->col;
-	matrizes[1].divisor = div;
 	matrizes[1].matriz = mB->matriz;
 
 	// Todo Talvez não seja necessário a particionar matrix 
 	// Todo Pois sempre vamos separa da mesma forma a mA e a mB
 	// Todo	É possivel realizar tudo em um for
-	for(int i = 0; i < div; i++){
-
-
+	for(int i = 0; i < 2; i++){
+		matrizes[i].divisor = div;
+		matrizes[i].bloco = (bloco_t *) malloc(sizeof(bloco_t) * div);
+		if(!matrizes[i].bloco){
+			puts("Falha ao alocar memoria para bloco_t");
+			exit(1);
+		}
+		matrizes[i].bloco[0].colInicio = 0;
+		matrizes[i].bloco[0].linInicio = 0;
+	}
+	for(int i = 1; i <= div; i++){
+		
+	}
+	// Os ultimos blocos devem conter como final a linha maxima + 1
+	// Pois o range sera da variavel Incio (inclusiva) ate a Final (exclusiva)
+	for(int i = 0; i < 2; i++){
+		matrizes[i].bloco[div-1].colFim= matrizes[i].col+1;
+		matrizes[i].bloco[div-1].linFim= matrizes[i].lin+1;
 	}
 
 	return matrizes;
