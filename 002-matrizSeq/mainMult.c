@@ -9,6 +9,7 @@
 int main(int argc, char *argv[]) {
 	// DECLARAÇÃO de VARIÁVEIS
 	matriz *matA, *matB;
+	matriz_bloco_t *matrizesParticionadas;
 	// char filename[100];
 	// int N, M, La, Lb;
 	// double start_time, end_time;
@@ -24,10 +25,17 @@ int main(int argc, char *argv[]) {
 	matriz *matC = multiplicarSeq(matA, matB);
 	mimprimir(matC);
 
+	puts("\n\n");
+
+	matrizesParticionadas = particionarMatrizVR(matA, matB, 2);
+	imprimirBlocos(&matrizesParticionadas[0]);
+	imprimirBlocos(&matrizesParticionadas[1]);
+
+	// Liberar submatriz ja liberar a **matriz logo nao pode mliberar a matA e matB
+	liberarSubmatriz(&matrizesParticionadas[0]);
+	liberarSubmatriz(&matrizesParticionadas[1]);
+
 	mliberar(matC);
-	mliberar(matA);
-	mliberar(matB);
-	// free(mat_mult);
 
 	return 0;
 }

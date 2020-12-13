@@ -67,6 +67,7 @@ int mimprimir (matriz *matriz){
 }
 
 int mliberar (matriz *matriz) { 
+	if(!(matriz->matriz)) return 1;
 	for (int i=0; i < matriz->lin; i++) {
 		//printf("%p\n", matriz->matriz[i]);
 		free(matriz->matriz[i]);
@@ -132,17 +133,31 @@ int imprimirBloco (matriz_bloco_t *submatriz, int num){
 	return 0;
 }
 
-// Da free no vetor de bloco_t, na int **matriz e no matriz_bloco_t recebido
-int liberarSubmatriz(matriz_bloco_t **submatriz){
-	if (!(*submatriz) || !(*submatriz)->bloco){
-		puts("Passado ponteiro nulo em Imprimir Bloco");
+// Imprime o blocosT
+int imprimirBlocos (matriz_bloco_t *submatriz){
+	if (!submatriz || !submatriz->bloco){
+		puts("Passado ponteiro nulo em Imprimir Blocos T");
 		return 1;
 	}
 
-	for (int i = 0; i < (*submatriz)->lin; i++) free((*submatriz)->matriz[i]);
-	free((*submatriz)->matriz);
-	free((*submatriz)->bloco);
-	free((*submatriz));
+	for(int i = 0; i < submatriz->divisor; i++){
+		if(imprimirBloco(submatriz, i)) return 1;
+	}
+	return 0;
+}
+
+// Da free no vetor de bloco_t, na int **matriz e no matriz_bloco_t recebido
+int liberarSubmatriz(matriz_bloco_t *submatriz){
+	if (!submatriz || !(submatriz->bloco)){
+		puts("Passado ponteiro nulo em Imprimir Bloco");
+		return 1;
+	}
+	if(submatriz->matriz){
+		for (int i = 0; i < submatriz->lin; i++) free(submatriz->matriz[i]);
+		free(submatriz->matriz);
+		submatriz->matriz = NULL;
+	}
+	free(submatriz->bloco);
 
 	return 0;
 }
@@ -185,14 +200,27 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 		matrizes[i].bloco[0].colInicio = 0;
 		matrizes[i].bloco[0].linInicio = 0;
 	}
-	for(int i = 1; i <= div; i++){
-		
+	matrizes[0].bloco[0].linFim = mA->lin + 1;
+	matrizes[0].bloco[0].colFim = (mA->col / div);
+	matrizes[1].bloco[0].linFim = (mA->col / div);
+	matrizes[1].bloco[0].colFim = mB->col + 1;
+	for(int i = 2; i <= div; i++){
+		// Atribui os valores dos blocos na matriz_blocot_t A
+		matrizes[0].bloco[div-1].linInicio = 0;
+		matrizes[0].bloco[div-1].linFim = mA->lin +1;
+		matrizes[0].bloco[div-1].colInicio = matrizes[0].bloco[div-2].colFim;
+		matrizes[0].bloco[div-1].colFim = (mA->col / div) * i;
+		// Atribui os valores dos blocos na matriz_blocot_t B
+		matrizes[1].bloco[div-1].linInicio = matrizes[1].bloco[div-2].linFim;
+		matrizes[1].bloco[div-1].linFim = (mA->col / div) * i;
+		matrizes[1].bloco[div-1].colInicio = 0;
+		matrizes[1].bloco[div-1].colFim = mB->col+1;
 	}
 	// Os ultimos blocos devem conter como final a linha maxima + 1
 	// Pois o range sera da variavel Incio (inclusiva) ate a Final (exclusiva)
 	for(int i = 0; i < 2; i++){
-		matrizes[i].bloco[div-1].colFim= matrizes[i].col+1;
-		matrizes[i].bloco[div-1].linFim= matrizes[i].lin+1;
+		matrizes[i].bloco[div-1].colFim = matrizes[i].col+1;
+		matrizes[i].bloco[div-1].linFim = matrizes[i].lin+1;
 	}
 
 	return matrizes;

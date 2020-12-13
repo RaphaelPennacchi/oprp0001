@@ -38,12 +38,15 @@ int mcomparar (matriz *mat_a, matriz *mat_b);
 // Imprimir a submatriz
 int imprimirSubmatriz (matriz_bloco_t *submatriz, int num);
 
-// Imprime o Bloco T
+// Imprime um Bloco T
 int imprimirBloco (matriz_bloco_t *submatriz, int num);
+
+// Imprime todos Bloco_T da matriz
+int imprimirBlocos (matriz_bloco_t *submatriz);
 
 // Receber uma matriz_bloco_t e uma orientação que refere a linha ou coluna para particionar nesse sentido
 // Retorna um vetor bloco_t que é a delimitação das partições da matrix
-int particionarAux (matriz_bloco_t *matriz, int orientacao);
+// int particionarAux (matriz_bloco_t *matriz, int orientacao);
 
 // Particionar matrix Versão Raphael, receber as duas matrizes na estrutura matriz e um int com o numero de partições
 // Retorna uma vetor de matriz_bloco_t contendo as duas matrizes particionadas
@@ -51,7 +54,7 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div);
 
 // matriz_bloco_t **particionarMatrizv3 (matriz *matriz, int orientacao, int div);
 // Libera todas as submatriz
-int liberarSubmatriz (matriz_bloco_t **submatriz);
+int liberarSubmatriz (matriz_bloco_t *submatriz);
 
 // Constroi matriz C
 // matriz_bloco_t **constroi_submatriz (int **matriz, int mat_lin, int mat_col, int divisor);
