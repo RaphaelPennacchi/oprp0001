@@ -76,7 +76,6 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 	return matC;
 }
 
-
 int multiplicaBlocoAux (int **matA, bloco_t *bA, int **matB, bloco_t *bB, matriz *matR){
 	for(int M = 0; M < matR->lin; M++){
 		for(int O = 0; O < matR->col; O++){
@@ -87,7 +86,6 @@ int multiplicaBlocoAux (int **matA, bloco_t *bA, int **matB, bloco_t *bB, matriz
 	}
 	return 0;
 }
-
 
 matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB){
 	matriz *matR = (matriz *) malloc(sizeof(matriz) * matA->divisor);

@@ -85,6 +85,7 @@ int mcomparar (matriz *matA, matriz *matB){
 		for (int j=0; j < matA->col; j++){
 			if (matA->matriz[i][j] != matB->matriz[i][j]) {
 				printf("O elemento [%d,%d] é diferente nas matrizes analisadas!\n", i,j);
+				printf("%d %d\n", matA->matriz[i][j], matB->matriz[i][j]);
 				return 1;
 			}
 		}
@@ -168,7 +169,8 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 	if(mA->col != mB->lin){
 		puts("Matriz A coluna e Matriz B linha diferem");
 		exit(1);
-	} if(mA->col > 1 && mA->col < div){
+	} 
+	if(div < 2 || div > mA->col){
 		puts("Numero divisor fora do intervalo 1 < div <= N");
 		exit(1);
 	}

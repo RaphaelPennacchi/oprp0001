@@ -10,7 +10,7 @@ main: código principal de teste das funções
 gmat: gerador de matrizes NxM em arquivo
 
 ARQUIVOS:
- * README-res: resultado da execução de exemplo (./main mat_a3x4.example mat_b4x3.example);
+ * README-res: resultado da execução de exemplo (./main mat_a3x4.example mat_b4x3.example 4);
  * mat_a3x4.example e mat_b4x3.example: matrizes exemplos A (3x4) e B(4x3);
  * toolsv3.(c/h): biblioteca de leitura/escrita de matrizes em arquivos;
  * matriz-operacoesv3.h: headers das funções de operações de matrizes que devem ser implementadas;

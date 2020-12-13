@@ -27,22 +27,23 @@ int main(int argc, char *argv[]) {
 	matriz *matC = multiplicarSeq(matA, matB);
 	mimprimir(matC);
 
-	puts("\n\n");
+	// puts("\n\n");
 
 	matrizesParticionadas = particionarMatrizVR(matA, matB, divisor);
-	puts("Matriz Bloco A");
-	imprimirBlocos(&matrizesParticionadas[0]);
-	puts("Matriz Bloco B");
-	imprimirBlocos(&matrizesParticionadas[1]);
+	// puts("Matriz Bloco A");
+	// imprimirBlocos(&matrizesParticionadas[0]);
+	// puts("Matriz Bloco B");
+	// imprimirBlocos(&matrizesParticionadas[1]);
 
 	puts("Multiplicacao de matriz em bloco \n");
 	matriz *resultado = multiplicaBloco(&matrizesParticionadas[0], &matrizesParticionadas[1]);
 	mimprimir(resultado);
+	mcomparar(matC, resultado);
 
 	// Liberar submatriz ja liberar a **matriz logo nao pode mliberar a matA e matB
 	liberarSubmatriz(&matrizesParticionadas[0]);
 	liberarSubmatriz(&matrizesParticionadas[1]);
-
+	
 	mliberar(resultado);
 	mliberar(matC);
 	free(resultado);
