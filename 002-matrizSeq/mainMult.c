@@ -27,8 +27,10 @@ int main(int argc, char *argv[]) {
 
 	puts("\n\n");
 
-	matrizesParticionadas = particionarMatrizVR(matA, matB, 2);
+	matrizesParticionadas = particionarMatrizVR(matA, matB, 4);
+	puts("Matriz Bloco A");
 	imprimirBlocos(&matrizesParticionadas[0]);
+	puts("Matriz Bloco B");
 	imprimirBlocos(&matrizesParticionadas[1]);
 
 	// Liberar submatriz ja liberar a **matriz logo nao pode mliberar a matA e matB

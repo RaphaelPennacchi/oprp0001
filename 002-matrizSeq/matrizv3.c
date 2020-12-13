@@ -206,15 +206,15 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 	matrizes[1].bloco[0].colFim = mB->col + 1;
 	for(int i = 2; i <= div; i++){
 		// Atribui os valores dos blocos na matriz_blocot_t A
-		matrizes[0].bloco[div-1].linInicio = 0;
-		matrizes[0].bloco[div-1].linFim = mA->lin +1;
-		matrizes[0].bloco[div-1].colInicio = matrizes[0].bloco[div-2].colFim;
-		matrizes[0].bloco[div-1].colFim = (mA->col / div) * i;
+		matrizes[0].bloco[i-1].linInicio = 0;
+		matrizes[0].bloco[i-1].linFim = mA->lin +1;
+		matrizes[0].bloco[i-1].colInicio = matrizes[0].bloco[i-2].colFim;
+		matrizes[0].bloco[i-1].colFim = (mA->col / div) * i;
 		// Atribui os valores dos blocos na matriz_blocot_t B
-		matrizes[1].bloco[div-1].linInicio = matrizes[1].bloco[div-2].linFim;
-		matrizes[1].bloco[div-1].linFim = (mA->col / div) * i;
-		matrizes[1].bloco[div-1].colInicio = 0;
-		matrizes[1].bloco[div-1].colFim = mB->col+1;
+		matrizes[1].bloco[i-1].linInicio = matrizes[1].bloco[i-2].linFim;
+		matrizes[1].bloco[i-1].linFim = (mA->col / div) * i;
+		matrizes[1].bloco[i-1].colInicio = 0;
+		matrizes[1].bloco[i-1].colFim = mB->col+1;
 	}
 	// Os ultimos blocos devem conter como final a linha maxima + 1
 	// Pois o range sera da variavel Incio (inclusiva) ate a Final (exclusiva)
