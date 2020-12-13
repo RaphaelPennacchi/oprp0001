@@ -76,13 +76,45 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 	return matC;
 }
 
+
+int multiplicaBlocoAux (int **matA, bloco_t *bA, int **matB, bloco_t *bB, matriz *matR){
+	for(int M = 0; M < matR->lin; M++){
+		for(int O = 0; O < matR->col; O++){
+			for(int N = bA->colInicio; N < bA->colFim; N++){
+				matR->matriz[M][O] += matA[M][N] * matB[N][O];
+			}
+		}
+	}
+	return 0;
+}
+
+
 matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB){
 	matriz *matR = (matriz *) malloc(sizeof(matriz) * matA->divisor);
+	matriz *final = (matriz *) malloc(sizeof(matriz));
+	final->lin = matA->lin;
+	final->col = matB->col;
+	malocar(final);
+	for(int i = 0; i < matA->divisor; i++){
+		matR[i].lin = matA->lin;
+		matR[i].col = matB->col;
+		malocar(&matR[i]);
+	}
 
 	// Todo fazer um loop em cada bloco e colocar em uma funcao aux pra multiplicar
 	for(int i = 0; i < matA->divisor; i++){
-		//matR[i] =  multiplicaBlocoAux(matA->matriz, matA->bloco[i], matB->matriz, matB->bloco[i]);
+		multiplicaBlocoAux(matA->matriz, &(matA->bloco[i]), matB->matriz, &(matB->bloco[i]), &matR[i]);
 	}
 
-	return matR;
+	for(int i = 0; i < matA->lin; i++){
+		for(int j = 0; j < matB->col; j++){
+			for(int divs = 0; divs < matA->divisor; divs++){
+				final->matriz[i][j] += matR[divs].matriz[i][j];
+			}
+		}
+	}
+	for(int i = 0; i < matA->divisor; i++) mliberar(&matR[i]);
+	free(matR);
+
+	return final;
 }

@@ -14,10 +14,12 @@ int main(int argc, char *argv[]) {
 	// int N, M, La, Lb;
 	// double start_time, end_time;
 
-	if (argc != 3){
-		printf ("ERRO: Numero de parametros %s <matriz_a> <matriz_b>\n", argv[0]);
+	if (argc != 4){
+		printf ("ERRO: Numero de parametros %s <matriz_a> <matriz_b> <divisor>\n", argv[0]);
 		exit (1);
 	}
+	int divisor = atoi(argv[3]);
+	printf("%d\n", divisor);
 
 	matA = leMatriz(argv[1]);
 	matB = leMatriz(argv[2]);
@@ -27,18 +29,23 @@ int main(int argc, char *argv[]) {
 
 	puts("\n\n");
 
-	matrizesParticionadas = particionarMatrizVR(matA, matB, 4);
+	matrizesParticionadas = particionarMatrizVR(matA, matB, divisor);
 	puts("Matriz Bloco A");
 	imprimirBlocos(&matrizesParticionadas[0]);
 	puts("Matriz Bloco B");
 	imprimirBlocos(&matrizesParticionadas[1]);
 
+	puts("Multiplicacao de matriz em bloco \n");
+	matriz *resultado = multiplicaBloco(&matrizesParticionadas[0], &matrizesParticionadas[1]);
+	mimprimir(resultado);
+
 	// Liberar submatriz ja liberar a **matriz logo nao pode mliberar a matA e matB
 	liberarSubmatriz(&matrizesParticionadas[0]);
 	liberarSubmatriz(&matrizesParticionadas[1]);
 
+	mliberar(resultado);
 	mliberar(matC);
-
+	free(resultado);
 	return 0;
 }
 

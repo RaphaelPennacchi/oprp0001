@@ -11,7 +11,7 @@ int malocar (matriz *matriz) {
 	}
 
 	for (int i=0; i < matriz->lin; i++) {
-		newMatriz[i] = (int *) malloc(sizeof(int)*matriz->col);
+		newMatriz[i] = (int *) calloc(matriz->col, sizeof(int));
 		if (!newMatriz) {
 			printf("ERROR: Out of memory\n");
 			return 1;
@@ -168,11 +168,8 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 	if(mA->col != mB->lin){
 		puts("Matriz A coluna e Matriz B linha diferem");
 		exit(1);
-	} if(mA->col < div){
-		puts("Numero divisor maior que o numero de N");
-		exit(1);
-	} if(div == 1){
-		puts("Numero de blocos necessita ser maior que 1");
+	} if(mA->col > 1 && mA->col < div){
+		puts("Numero divisor fora do intervalo 1 < div <= N");
 		exit(1);
 	}
 	matriz_bloco_t *matrizes = (matriz_bloco_t *) malloc(sizeof(matriz_bloco_t) * 2);
