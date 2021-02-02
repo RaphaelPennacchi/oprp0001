@@ -2,9 +2,9 @@
 # Revisão: ago/2019
 
 CC = gcc
-CCFLAGS = -Wall -O3 -lpthread
+CCFLAGS = -Wall -O3 -lpthread -fopenmp
 LDFLAGS =
-TARGET = mainMult gmat help
+TARGET = main gmat help
 
 all: $(TARGET)
 
@@ -15,8 +15,8 @@ all: $(TARGET)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 
-mainMult: mainMult.c matrizv3.o toolsv3.o matriz-operacoesv3.o
-			$(CC) $(CCFLAGS) matrizv3.o toolsv3.o matriz-operacoesv3.o mainMult.c -o $@ $(LDFLAGS)
+main: main.c matrizv3.o toolsv3.o matriz-operacoesv3.o
+			$(CC) $(CCFLAGS) matrizv3.o toolsv3.o matriz-operacoesv3.o main.c -o $@ $(LDFLAGS)
 
 gmat: matrizv3.o toolsv3.o gera_matrizv3.c
 		$(CC) $(CCFLAGS) matrizv3.o toolsv3.o gera_matrizv3.c -o $@ $(LDFLAGS)

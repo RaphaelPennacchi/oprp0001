@@ -1,16 +1,16 @@
 ###################################################
 ### Disciplina de Programação Paralela Avançada ###
 ###################################################
-Revisão: ago/2019
+Revisão: Fevereiro/2021
 Linguagem: C
 Versão: v3 (tools, matriz, matriz-operacoes)
 Executáveis: main e gmat
 
-mainMult: código principal de teste das funções
+main: código principal de teste das funções
 gmat: gerador de matrizes NxM em arquivo
 
 
-* Para executar o mainMult utilize na forma ./mainMult <matrizExA> <matrizExB> <numeroDeDivisoes>
+* Para executar o mainMult utilize na forma ./main <matrizExA> <matrizExB> <numeroDeDivisoes>
 * O numeroDeDivisoes seria em quantas partes desejaria separar a matriz sendo que esse número deve 
 * ser maior que 1 e menor ou igual a N em uma matriz MxN NxO
 
@@ -24,4 +24,4 @@ ARQUIVOS:
  * matrizv3.h: headers das funções de gerência de matrizes que devem ser implementadas;
  * matrizv3.c: Funções de particionamento e gerenciamento das estruturas;
  * gera_matrizv3.c: fontes do programa de geração de matrizes em arquivo;
- * main_matrizv3.c: fontes do programa de teste das operações de matrizes;
+ * main.c: fontes do programa de teste das operações de matrizes;

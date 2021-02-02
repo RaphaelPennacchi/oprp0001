@@ -306,7 +306,6 @@ matriz *leMatriz(char *nomeArq){
 		exit(1);
 	}
 	extrai_parametros_matriz(fMat, &nL, &nC, &vetLine, &nrLine);
-	//return 1;
 	mat->matriz = NULL;
 	mat->lin = nL;
 	mat->col = nC;

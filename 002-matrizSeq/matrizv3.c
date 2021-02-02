@@ -224,30 +224,3 @@ matriz_bloco_t *particionarMatrizVR (matriz *mA, matriz *mB, int div){
 
 	return matrizes;
 }
-
-// matriz_bloco_t **particionarMatrizv3 (matriz *matriz, int orientacao, int div);
-// Libera todas as submatriz
-
-
-// Para construir a submatriz é necessario na matrix A do tipo MxN subparticionar o N
-// Na matrix B NxO é necessario subparticionar o N e somar todas as submatrizes resultantes
-
-// MxN							NxO
-
-// Mat A1    Mat A2
-// bloco_t *bA = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
-// bloco_t *bB = (bloco_t *) malloc(sizeof(bloco_t) * divisor);
-// bA[0].linInicio = 0; bA[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
-// bA[1].linInicio = 0; bA[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
-// bB[0].linInicio = 0; bB[0].linFim = 5;bA[0].colInicio = 0; bA[0].colFim = 1;
-// bB[1].linInicio = 0; bB[1].linFim = 5;bA[1].colInicio = 2; bA[1].colFim = 2;
-
-// 5x2		5x1
-// 1 2 		3				1 2 3 4 5 6 7 8		Mat B1   
-// 1 2 		3				1 2 3 4 5 6 7 8		2x8	
-// 1 2 		3				
-// 1 2 		3				1 2 3 4 5 6 7 8		1x8
-// 1 2 		3
-
-// MatF = (MatA1 * MatB1 + MatA2 * MatB2);
-// MatF = (MatC1 + MatC2);
