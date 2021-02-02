@@ -25,6 +25,14 @@ typedef struct {
   int col;
 } matriz;
 
+typedef struct {
+  int **matA;
+  int **matB;
+  bloco_t *bA;
+  bloco_t *bB;
+  matriz *matR;
+} threadsParam;
+
 // gerência de matrizes
 matriz *lerMatriz(char nomeArq[]);
 int malocar (matriz *matriz);

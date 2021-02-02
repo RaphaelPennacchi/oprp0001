@@ -7,7 +7,6 @@
 
 
 int main(int argc, char *argv[]) {
-	// DECLARAÇÃO de VARIÁVEIS
 	matriz *matA, *matB;
 	matriz_bloco_t *matrizesParticionadas;
 	// char filename[100];
@@ -19,26 +18,27 @@ int main(int argc, char *argv[]) {
 		exit (1);
 	}
 	int divisor = atoi(argv[3]);
-	printf("%d\n", divisor);
 
 	matA = leMatriz(argv[1]);
 	matB = leMatriz(argv[2]);
 
 	matriz *matC = multiplicarSeq(matA, matB);
-	mimprimir(matC);
+	// mimprimir(matC);
 
 	// puts("\n\n");
 
 	matrizesParticionadas = particionarMatrizVR(matA, matB, divisor);
-	// puts("Matriz Bloco A");
-	// imprimirBlocos(&matrizesParticionadas[0]);
-	// puts("Matriz Bloco B");
-	// imprimirBlocos(&matrizesParticionadas[1]);
+	puts("Matriz Bloco A");
+	imprimirBlocos(&matrizesParticionadas[0]);
+	puts("Matriz Bloco B");
+	imprimirBlocos(&matrizesParticionadas[1]);
 
 	puts("Multiplicacao de matriz em bloco \n");
 	matriz *resultado = multiplicaBloco(&matrizesParticionadas[0], &matrizesParticionadas[1]);
-	mimprimir(resultado);
+	matriz *resultadoParalel = multiplicarBlocoThreads(&matrizesParticionadas[0], &matrizesParticionadas[1]);
+	// mimprimir(resultado);
 	mcomparar(matC, resultado);
+	mcomparar(matC, resultadoParalel);
 
 	// Liberar submatriz ja liberar a **matriz logo nao pode mliberar a matA e matB
 	liberarSubmatriz(&matrizesParticionadas[0]);

@@ -2,7 +2,7 @@
 # Revisão: ago/2019
 
 CC = gcc
-CCFLAGS = -Wall -O3
+CCFLAGS = -Wall -O3 -lpthread
 LDFLAGS =
 TARGET = mainMult gmat help
 

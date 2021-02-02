@@ -6,16 +6,22 @@ Linguagem: C
 Versão: v3 (tools, matriz, matriz-operacoes)
 Executáveis: main e gmat
 
-main: código principal de teste das funções
+mainMult: código principal de teste das funções
 gmat: gerador de matrizes NxM em arquivo
+
+
+* Para executar o mainMult utilize na forma ./mainMult <matrizExA> <matrizExB> <numeroDeDivisoes>
+* O numeroDeDivisoes seria em quantas partes desejaria separar a matriz sendo que esse número deve 
+* ser maior que 1 e menor ou igual a N em uma matriz MxN NxO
+
 
 ARQUIVOS:
  * README-res: resultado da execução de exemplo (./main mat_a3x4.example mat_b4x3.example 4);
  * mat_a3x4.example e mat_b4x3.example: matrizes exemplos A (3x4) e B(4x3);
  * toolsv3.(c/h): biblioteca de leitura/escrita de matrizes em arquivos;
  * matriz-operacoesv3.h: headers das funções de operações de matrizes que devem ser implementadas;
- * matriz-operacoesv3.c: EM BRANCO (deve ser implementado);
+ * matriz-operacoesv3.c: Funções de multiplicação;
  * matrizv3.h: headers das funções de gerência de matrizes que devem ser implementadas;
- * matrizv3.c: EM BRANCO (deve ser implementado);
+ * matrizv3.c: Funções de particionamento e gerenciamento das estruturas;
  * gera_matrizv3.c: fontes do programa de geração de matrizes em arquivo;
  * main_matrizv3.c: fontes do programa de teste das operações de matrizes;
