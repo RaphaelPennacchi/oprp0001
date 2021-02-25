@@ -35,6 +35,7 @@ typedef struct {
 
 // gerência de matrizes
 matriz *lerMatriz(char nomeArq[]);
+void malocarMPI(matriz **matriz, int lin, int col);
 int malocar (matriz *matriz);
 int mgerar(matriz *matriz, int valor);
 int mimprimir (matriz *matriz);

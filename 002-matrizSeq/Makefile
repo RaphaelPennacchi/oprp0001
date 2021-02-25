@@ -1,10 +1,11 @@
 # GNU Makefile
 # Revisão: ago/2019
 
+MPICC = mpicc
 CC = gcc
 CCFLAGS = -Wall -O3 -lpthread -fopenmp
 LDFLAGS =
-TARGET = main gmat help
+TARGET = main gmat help mpi
 
 all: $(TARGET)
 
@@ -20,6 +21,9 @@ main: main.c matrizv3.o toolsv3.o matriz-operacoesv3.o
 
 gmat: matrizv3.o toolsv3.o gera_matrizv3.c
 		$(CC) $(CCFLAGS) matrizv3.o toolsv3.o gera_matrizv3.c -o $@ $(LDFLAGS)
+
+mpi: 
+	$(MPICC) $(CCFLAGS) -o mainmpi mainMPI.c matrizv3.o toolsv3.o matriz-operacoesv3.o
 
 help:
 	@echo

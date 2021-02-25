@@ -6,7 +6,6 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 		puts("Erro: Matrizes incompatíveis!");
 		exit(1);
 	}
-
 	// Aloco a matC
 	matriz *matC = NULL;
 	matC = (matriz *) malloc(sizeof(matriz));
@@ -14,11 +13,9 @@ matriz *multiplicarSeq (matriz *matA, matriz *matB) {
 		puts("Sem memoria para alocar matriz C");
 		exit(1);
 	}
-
 	// matC tem tamanho MxO
 	matC->lin = matA->lin;
 	matC->col = matB->col;
-
 	// Cria a matC->matriz com todos os campos preenchidos com 0
 	malocar(matC);
 	// Realiza a multiplicacao de matA x matB e salva em matC
@@ -53,8 +50,10 @@ matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB, Options opc
 	malocar(final);
 
 	switch(opcao){
+		pthread_t *tIds;
+		threadsParam *params;
 		case BLOCO:
-			puts("bloco");
+			puts("Bloco Sequencial");
 			for(int i = 0; i < matA->divisor; i++){
 				matR[i].lin = matA->lin;
 				matR[i].col = matB->col;
@@ -65,10 +64,9 @@ matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB, Options opc
 			}
 			break;
 		case THREADS:
-			puts("threads");
-			pthread_t *tIds = (pthread_t*) malloc(sizeof(pthread_t) * matA->divisor);
-			threadsParam *params = (threadsParam *) malloc(sizeof(threadsParam) * matA->divisor);
-
+			puts("Threads");
+			tIds = (pthread_t*) malloc(sizeof(pthread_t) * matA->divisor);
+			params = (threadsParam *) malloc(sizeof(threadsParam) * matA->divisor);
 			for(int i = 0; i < matA->divisor; i++){
 				matR[i].lin = matA->lin;
 				matR[i].col = matB->col;
@@ -79,15 +77,13 @@ matriz *multiplicaBloco (matriz_bloco_t *matA, matriz_bloco_t *matB, Options opc
 				params[i].matR = &matR[i];
 				malocar(&matR[i]);
 			}
-
 			for(int i = 0; i < matA->divisor; i++) pthread_create(&tIds[i], NULL, routine, (void *) &params[i]);
 			for(int i = 0; i < matA->divisor; i++) pthread_join(tIds[i], NULL);
-
 			free(tIds);
 			free(params);
 			break;
 		case OPENMP:
-			puts("openmp");
+			puts("Openmp");
 			for(int i = 0; i < matA->divisor; i++){
 				matR[i].lin = matA->lin;
 				matR[i].col = matB->col;

@@ -49,6 +49,9 @@ int main(int argc, char *argv[]) {
 	endTime = wtime();
 	printf("Tempo execucao: %lf ms\n", endTime - initTime);
 
+
+	mimprimir(matC);
+	mimprimir(resultado);
 	puts("\n\tComparar SEQ e BLOCO");
 	mcomparar(matC, resultado);
 	puts("\tComparar SEQ e THREADS");

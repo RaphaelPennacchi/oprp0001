@@ -10,9 +10,11 @@ main: código principal de teste das funções
 gmat: gerador de matrizes NxM em arquivo
 
 
-* Para executar o mainMult utilize na forma ./main <matrizExA> <matrizExB> <numeroDeDivisoes>
+* Para executar o main utilize na forma ./main <matrizExA> <matrizExB> <numeroDeDivisoes>
 * O numeroDeDivisoes seria em quantas partes desejaria separar a matriz sendo que esse número deve 
 * ser maior que 1 e menor ou igual a N em uma matriz MxN NxO
+* Para executar o mainmpi utilize mpirun -np <numero de processos> mainmpi <matrizExA> <matrizExB>
+* O numero de processos deve seguir a mesma regra do numeroDeDivisoes
 
 
 ARQUIVOS:
