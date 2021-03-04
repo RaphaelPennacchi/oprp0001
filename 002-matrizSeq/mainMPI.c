@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
   int rank, size, error;
   int* sizesM = (int*)malloc(sizeof(int) * 4);
   matriz* matA, * matB, * matR;
-  matriz* Final;
+  // matriz* Final;
   matriz_bloco_t* matrizesParticionadas;
   // MPI_Status status;
   MPI_Init(&argc, &argv);
@@ -59,14 +59,6 @@ int main(int argc, char** argv) {
     MPI_Bcast(matB->matriz[i], sizesM[3], MPI_INT, 0, MPI_COMM_WORLD);
   }
 
-  // printf("Transferencia Terminada %d\n", rank);
-  // for(int i = 0; i < sizesM[0]; i++){
-  //   for(int j = 0; j < sizesM[1]; j++){
-  //     printf("%d ", matA->matriz[i][j]);
-  //   }
-  //   puts("");
-  // }
-
   matrizesParticionadas = particionarMatrizVR(matA, matB, size);
 
   malocarMPI(&matR, matA->lin, matB->col);
@@ -74,11 +66,12 @@ int main(int argc, char** argv) {
 
   int** teste;
   if (!rank) {
-    malocarMPI(&Final, matR->lin, matR->col * size); //Cria uma matriz para alocar todos os endereços do gather
+    // malocarMPI(&Final, matR->lin, matR->col * size); //Cria uma matriz para alocar todos os endereços do gather
     teste = (int**)malloc(sizeof(int*) * matR->lin);
     for (int i = 0; i < matR->lin; i++) {
       teste[i] = (int*)malloc(sizeof(int) * size * matR->col);
     }
+    // int * teste = (int*) malloc(sizeof(int)) * size * matR->col);
     MPI_Barrier(MPI_COMM_WORLD);
   }
   else {
@@ -105,7 +98,6 @@ int main(int argc, char** argv) {
       }
       puts("");
     }
-
   }
   else {
     MPI_Barrier(MPI_COMM_WORLD);
