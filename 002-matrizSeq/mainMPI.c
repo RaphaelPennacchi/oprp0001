@@ -7,9 +7,10 @@
 int main(int argc, char** argv) {
   int rank, size, error;
   int* sizesM = (int*)malloc(sizeof(int) * 4);
-  matriz* matA, * matB, * matR;
-  // matriz* Final;
+  matriz* matA, * matB, * matR, *matSeq;
+  matriz* Final;
   matriz_bloco_t* matrizesParticionadas;
+  double initTime, endTime;
   // MPI_Status status;
   MPI_Init(&argc, &argv);
 
@@ -32,6 +33,10 @@ int main(int argc, char** argv) {
     sizesM[1] = matA->col;
     sizesM[2] = matB->lin;
     sizesM[3] = matB->col;
+    initTime = wtime();
+    matSeq = multiplicarSeq(matA, matB);
+    endTime = wtime();
+    printf("Tempo execucao: %lf ms\n", endTime - initTime);
     MPI_Barrier(MPI_COMM_WORLD);
   }
   else {
@@ -52,6 +57,8 @@ int main(int argc, char** argv) {
   else {
     MPI_Barrier(MPI_COMM_WORLD);
   }
+
+  initTime = wtime();
   for (int i = 0; i < sizesM[0]; i++) {
     MPI_Bcast(matA->matriz[i], sizesM[1], MPI_INT, 0, MPI_COMM_WORLD);
   }
@@ -64,13 +71,10 @@ int main(int argc, char** argv) {
   malocarMPI(&matR, matA->lin, matB->col);
   multiplicaBlocoAux(matA->matriz, &(matrizesParticionadas[0].bloco[rank]), matB->matriz, &(matrizesParticionadas[1].bloco[rank]), matR);
 
-  int** teste;
+  int* buff;
   if (!rank) {
-    // malocarMPI(&Final, matR->lin, matR->col * size); //Cria uma matriz para alocar todos os endereços do gather
-    teste = (int**)malloc(sizeof(int*) * matR->lin);
-    for (int i = 0; i < matR->lin; i++) {
-      teste[i] = (int*)malloc(sizeof(int) * size * matR->col);
-    }
+    malocarMPI(&Final, matR->lin, matR->col); //Cria uma matriz para alocar todos os endereços do gather
+    buff = (int*)malloc(sizeof(int) * size * matR->col);
     // int * teste = (int*) malloc(sizeof(int)) * size * matR->col);
     MPI_Barrier(MPI_COMM_WORLD);
   }
@@ -79,25 +83,21 @@ int main(int argc, char** argv) {
   }
 
   for (int i = 0; i < matR->lin; i++) {
-    MPI_Gather(matR->matriz[i], matR->col, MPI_INT, teste[i], matR->col, MPI_INT, 0, MPI_COMM_WORLD);
-  }
-
-  if (!rank) {
-    MPI_Barrier(MPI_COMM_WORLD);
-    for (int i = 0; i < matA->lin; i++) {
+    MPI_Gather(matR->matriz[i], matR->col, MPI_INT, buff, matR->col, MPI_INT, 0, MPI_COMM_WORLD);
+    if(!rank){
       for (int j = 0; j < matB->col; j++) {
-        for (int size_ = 1; size_ < size; size_++) {
-          teste[i][j] += teste[i][j + size_ * matB->col];
+        for (int size_ = 0; size_ < size; size_++) {
+          Final->matriz[i][j] += buff[j + size_ * matB->col];
         }
       }
     }
-    puts("Matriz Final");
-    for (int i = 0; i < matA->lin; i++) {
-      for (int j = 0; j < matB->col; j++) {
-        printf("%d ", teste[i][j]);
-      }
-      puts("");
-    }
+  }
+
+  if (!rank) {
+    endTime = wtime();
+    printf("Tempo execucao: %lf ms\n", endTime - initTime);
+    mcomparar(matSeq, Final);
+    MPI_Barrier(MPI_COMM_WORLD);
   }
   else {
     MPI_Barrier(MPI_COMM_WORLD);
